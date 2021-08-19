@@ -1,23 +1,19 @@
-import logo from './logo.svg';
 import './App.css';
+
+import Navbar from './components/Navbar.jsx';
+import Jumbotron from './components/Jumbotron.jsx';
+import SelectTemplate from './components/SelectTemplate.jsx';
+import CreateTemplate from './components/CreateTemplate.jsx';
+import Footer from './components/Footer.jsx';
 
 function App() {
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <Navbar />
+      <Jumbotron />
+      <SelectTemplate />
+      <CreateTemplate />
+      <Footer />
     </div>
   );
 }
