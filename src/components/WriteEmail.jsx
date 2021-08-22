@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { SESClient, SendEmailCommand } from "@aws-sdk/client-ses";
 
 import { makeStyles } from "@material-ui/core/styles";
 import { Grid, Typography, TextField, Button } from "@material-ui/core";
@@ -25,9 +26,62 @@ const WriteEmail = (props) => {
 
   const [formData, setFormData] = useState(initialFormState);
 
+  const client = new SESClient({ region: "us-east-2" });
+
+  const params = {
+    Destination: {
+      /* required */
+      CcAddresses: [
+        /* 'EMAIL_ADDRESS', */
+        /* more items */
+      ],
+      ToAddresses: [
+        "chris@christopherritter.com",
+        /* more items */
+      ],
+    },
+    Message: {
+      /* required */
+      Body: {
+        /* required */
+        Html: {
+          Charset: "UTF-8",
+          Data: "This is the Body Html Data field.",
+        },
+        Text: {
+          Charset: "UTF-8",
+          Data: "This is the Body Text Data field.",
+        },
+      },
+      Subject: {
+        Charset: "UTF-8",
+        Data: "This is the subject line.",
+      },
+    },
+    Source: "chris@christopherritter.com" /* required */,
+    ReplyToAddresses: [
+      "chris@christopherritter.com",
+      /* more items */
+    ],
+  };
+
+  const command = new SendEmailCommand(params);
+
   function createEmail() {
     props.createEmail(formData);
     setFormData(initialFormState);
+  }
+
+  async function sendEmail() {
+    try {
+      const data = await client.send(command);
+      console.log("data", data);
+    } catch (error) {
+      // error handling.
+      console.log("error", error);
+    } finally {
+      // finally.
+    }
   }
 
   return (
@@ -76,7 +130,7 @@ const WriteEmail = (props) => {
                 </Button>
               </Grid>
               <Grid item sm={6} xs={12}>
-                <Button variant="contained" color="secondary">
+                <Button variant="contained" color="secondary" onClick={sendEmail}>
                   Send Email
                 </Button>
               </Grid>
