@@ -1,4 +1,6 @@
 import './App.css';
+import { withAuthenticator } from '@aws-amplify/ui-react'
+import { Grid } from "@material-ui/core";
 
 import Navbar from './components/Navbar.jsx';
 import Jumbotron from './components/Jumbotron.jsx';
@@ -18,4 +20,4 @@ function App() {
   );
 }
 
-export default App;
+export default withAuthenticator(App);
