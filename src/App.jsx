@@ -14,6 +14,8 @@ import SelectTemplate from "./components/SelectTemplate.jsx";
 import WriteEmail from "./components/WriteEmail.jsx";
 import Footer from "./components/Footer.jsx";
 
+// Making a simple change to the App component
+
 function App() {
   const [emails, setEmails] = useState([]);
 
