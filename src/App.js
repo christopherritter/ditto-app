@@ -4,7 +4,7 @@ import { withAuthenticator } from '@aws-amplify/ui-react'
 import Navbar from './components/Navbar.jsx';
 import Jumbotron from './components/Jumbotron.jsx';
 import SelectTemplate from './components/SelectTemplate.jsx';
-import CreateTemplate from './components/CreateTemplate.jsx';
+import WriteEmail from './components/WriteEmail.jsx';
 import Footer from './components/Footer.jsx';
 
 function App() {
@@ -13,7 +13,7 @@ function App() {
       <Navbar />
       <Jumbotron />
       <SelectTemplate />
-      <CreateTemplate />
+      <WriteEmail />
       <Footer />
     </div>
   );
