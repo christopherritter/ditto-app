@@ -23,7 +23,6 @@ function App() {
   const AssessLoggedInState = () => {
     Auth.currentAuthenticatedUser()
       .then(() => {
-
         setLoggedIn(true);
       })
       .catch(() => {
