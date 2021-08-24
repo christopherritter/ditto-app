@@ -1,7 +1,14 @@
 import React, { useState } from "react";
 import { Auth } from "aws-amplify";
 import { useHistory } from "react-router-dom";
-import { Avatar, Button, TextField, Grid, Typography } from "@material-ui/core";
+import {
+  Avatar,
+  Button,
+  Container,
+  TextField,
+  Grid,
+  Typography,
+} from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
 import LockOutlinedIcon from "@material-ui/icons/LockOutlined";
 
@@ -97,89 +104,151 @@ const SignIn = ({ signedIn }) => {
   }
 
   return (
-    <div className={classes.paper}>
-      <Avatar className={classes.avatar}>
-        <LockOutlinedIcon />
-      </Avatar>
-      <Typography component="h1" variant="h5">
-        Sign in
-      </Typography>
-      {
-        {
-          signUp: (
-            <form className={classes.form} noValidate>
-              <TextField name="username" onChange={onChange} />
-              <TextField name="password" type="password" onChange={onChange} />
-              <TextField name="email" onChange={onChange} />
-              <Button onClick={signUp}>Sign Up</Button>
-              <Button onClick={showSignIn}>
-                Already have an account? Sign In
-              </Button>
-            </form>
-          ),
-          confirmSignUp: (
-            <form className={classes.form} noValidate>
-              <TextField name="username" onChange={onChange} />
-              <TextField name="verificationCode" onChange={onChange} />
-              <Button onClick={confirmSignUp}>Confirm Sign Up</Button>
-            </form>
-          ),
-          signIn: (
-            <form className={classes.form} noValidate>
-              <TextField
-                variant="outlined"
-                margin="normal"
-                required
-                fullWidth
-                id="username"
-                label="Username"
-                name="username"
-                autoComplete="username"
-                autoFocus
-                onChange={onChange}
-              />
-              <TextField
-                variant="outlined"
-                margin="normal"
-                required
-                fullWidth
-                name="password"
-                label="Password"
-                type="password"
-                id="password"
-                autoComplete="current-password"
-                onChange={onChange}
-              />
-              <Button
-                type="submit"
-                fullWidth
-                variant="contained"
-                color="primary"
-                className={classes.submit}
-                onClick={signIn}
-              >
-                Sign In
-              </Button>
-              <Grid container>
-                <Grid item xs>
-                  <Button>Forgot password?</Button>
-                </Grid>
-                <Grid item>
-                  <Button onClick={showSignUp}>
-                    Don't have an account? Sign Up
+    <Container component="main" maxWidth="xs">
+      <div className={classes.paper}>
+        <Avatar className={classes.avatar}>
+          <LockOutlinedIcon />
+        </Avatar>
+        <Typography component="h1" variant="h5">
+          Sign in
+        </Typography>
+        <form className={classes.form} noValidate>
+          {
+            {
+              signUp: (
+                <>
+                  <TextField
+                    variant="outlined"
+                    margin="normal"
+                    required
+                    fullWidth
+                    id="username"
+                    name="username"
+                    label="Username"
+                    autoFocus
+                    onChange={onChange}
+                  />
+                  <TextField
+                    variant="outlined"
+                    margin="normal"
+                    required
+                    fullWidth
+                    id="password"
+                    name="password"
+                    type="password"
+                    label="Password"
+                    onChange={onChange}
+                  />
+                  <TextField
+                    variant="outlined"
+                    margin="normal"
+                    required
+                    fullWidth
+                    id="email"
+                    name="email"
+                    label="Email"
+                    onChange={onChange}
+                  />
+                  <Button
+                    type="submit"
+                    fullWidth
+                    variant="contained"
+                    color="primary"
+                    className={classes.submit}
+                    onClick={signUp}
+                  >
+                    Sign Up
                   </Button>
-                </Grid>
-              </Grid>
-            </form>
-          ),
-          signedIn: (
-            <form className={classes.form} noValidate>
-              <h1>Welcome to my app!</h1>
-            </form>
-          ),
-        }[formState]
-      }
-    </div>
+                  <Button fullWidth onClick={showSignIn}>
+                   Already Have An Account?
+                  </Button>
+                </>
+              ),
+              confirmSignUp: (
+                <>
+                  <TextField
+                    variant="outlined"
+                    margin="normal"
+                    required
+                    fullWidth
+                    id="username"
+                    label="Username"
+                    name="username"
+                    autoFocus
+                    onChange={onChange}
+                  />
+                  <TextField
+                    variant="outlined"
+                    margin="normal"
+                    required
+                    fullWidth
+                    id="verificationCode"
+                    label="Verification code"
+                    name="verificationCode"
+                    onChange={onChange}
+                  />
+                  <Button
+                    type="submit"
+                    fullWidth
+                    variant="contained"
+                    color="primary"
+                    className={classes.submit}
+                    onClick={confirmSignUp}
+                  >
+                    Confirm Sign Up
+                  </Button>
+                </>
+              ),
+              signIn: (
+                <>
+                  <TextField
+                    variant="outlined"
+                    margin="normal"
+                    required
+                    fullWidth
+                    id="username"
+                    label="Username"
+                    name="username"
+                    autoFocus
+                    onChange={onChange}
+                  />
+                  <TextField
+                    variant="outlined"
+                    margin="normal"
+                    required
+                    fullWidth
+                    name="password"
+                    label="Password"
+                    type="password"
+                    id="password"
+                    onChange={onChange}
+                  />
+                  <Button
+                    type="submit"
+                    fullWidth
+                    variant="contained"
+                    color="primary"
+                    className={classes.submit}
+                    onClick={signIn}
+                  >
+                    Sign In
+                  </Button>
+                  <Grid container>
+                    <Grid item sm={6}>
+                      <Button>Forgot password?</Button>
+                    </Grid>
+                    <Grid item sm={6}>
+                      <Button onClick={showSignUp}>Need an account?</Button>
+                    </Grid>
+                  </Grid>
+                </>
+              ),
+              signedIn: <h1>Welcome to Ditto!</h1>,
+            }[formState]
+          }
+        </form>
+      </div>
+    </Container>
   );
 };
 
