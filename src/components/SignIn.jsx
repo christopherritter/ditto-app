@@ -4,18 +4,12 @@ import { useHistory } from "react-router-dom";
 import {
   Avatar,
   Button,
-  CssBaseline,
   TextField,
-  FormControlLabel,
-  Checkbox,
-  Link,
   Grid,
-  Box,
   Typography,
-  Container,
 } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
-import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
+import LockOutlinedIcon from "@material-ui/icons/LockOutlined";
 
 const useStyles = makeStyles((theme) => ({
   paper: {
@@ -37,25 +31,30 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const SignIn = ({ onSignIn }) => {
+const SignIn = () => {
   const classes = useStyles();
+  const history = useHistory();
 
-  /* Create the form state and form input state */
-  let formState = "signUp";
-  let formInputState = {
+  const [formState, setFormState] = useState("signIn");
+
+  const [formInputState, setFormInputState] = useState({
     username: "",
     password: "",
     email: "",
     verificationCode: "",
-  };
+  });
 
-  /* onChange handler for form inputs */
   function onChange(e) {
-    formInputState = { ...formInputState, [e.target.name]: e.target.value };
+    setFormInputState({ ...formInputState, [e.target.name]: e.target.value });
   }
 
-  /* Sign up function */
-  async function signUp() {
+  function showSignUp(e) {
+    e.preventDefault();
+    setFormState("signUp");
+  }
+
+  async function signUp(e) {
+    e.preventDefault();
     try {
       await Auth.signUp({
         username: formInputState.username,
@@ -65,141 +64,129 @@ const SignIn = ({ onSignIn }) => {
         },
       });
       /* Once the user successfully signs up, update form state to show the confirm sign up form for MFA */
-      formState = "confirmSignUp";
+      setFormState("confirmSignUp");
     } catch (err) {
       console.log({ err });
     }
   }
 
-  function switchToSignIn() {
-    formState = "signIn";
-    console.log(formState);
-  }
-
-  /* Confirm sign up function for MFA */
-  async function confirmSignUp() {
+  async function confirmSignUp(e) {
+    e.preventDefault();
     try {
       await Auth.confirmSignUp(
         formInputState.username,
         formInputState.verificationCode
       );
       /* Once the user successfully confirms their account, update form state to show the sign in form*/
-      formState = "signIn";
+      setFormState("signIn");
     } catch (err) {
       console.log({ err });
     }
   }
 
-  /* Sign in function */
-  async function signIn() {
+  function showSignIn(e) {
+    e.preventDefault();
+    setFormState("signIn");
+  }
+
+  async function signIn(e) {
+    e.preventDefault();
     try {
       await Auth.signIn(formInputState.username, formInputState.password);
       /* Once the user successfully signs in, update the form state to show the signed in state */
-      formState = "signedIn";
+      setFormState("signedIn");
+      history.push("/");
     } catch (err) {
       console.log({ err });
     }
   }
 
-  /* In the UI of the app, render forms based on form state */
-  /* If the form state is "signUp", show the sign up form */
-  if (formState === "signUp") {
-    return (
-      <div>
-        <input name="username" onChange={onChange} />
-        <input name="password" type="password" onChange={onChange} />
-        <input name="email" onChange={onChange} />
-        <button onClick={signUp}>Sign Up</button>
-        <button onClick={switchToSignIn}>Already have an account? Sign In</button>
-      </div>
-    );
-  }
+  return (
+    <div className={classes.paper}>
+      <Avatar className={classes.avatar}>
+        <LockOutlinedIcon />
+      </Avatar>
+      <Typography component="h1" variant="h5">
+        Sign in
+      </Typography>
 
-  /* If the form state is "confirmSignUp", show the confirm sign up form */
-  if (formState === "confirmSignUp") {
-    return (
-      <div>
-        <input name="username" onChange={onChange} />
-        <input name="verificationCode" onChange={onChange} />
-        <button onClick={confirmSignUp}>Confirm Sign Up</button>
-      </div>
-    );
-  }
-
-  /* If the form state is "signIn", show the sign in form */
-  if (formState === "signIn") {
-    return (
-      <Container component="main" maxWidth="xs">
-        <CssBaseline />
-        <div className={classes.paper}>
-          <Avatar className={classes.avatar}>
-            <LockOutlinedIcon />
-          </Avatar>
-          <Typography component="h1" variant="h5">
-            Sign in
-          </Typography>
-          <form className={classes.form} noValidate>
-            <TextField
-              variant="outlined"
-              margin="normal"
-              required
-              fullWidth
-              id="email"
-              label="Email Address"
-              name="email"
-              autoComplete="email"
-              autoFocus
-            />
-            <TextField
-              variant="outlined"
-              margin="normal"
-              required
-              fullWidth
-              name="password"
-              label="Password"
-              type="password"
-              id="password"
-              autoComplete="current-password"
-            />
-            <FormControlLabel
-              control={<Checkbox value="remember" color="primary" />}
-              label="Remember me"
-            />
-            <Button
-              type="submit"
-              fullWidth
-              variant="contained"
-              color="primary"
-              className={classes.submit}
-            >
-              Sign In
-            </Button>
-            <Grid container>
-              <Grid item xs>
-                <Link href="#" variant="body2">
-                  Forgot password?
-                </Link>
+      {
+        {
+          signUp: (
+            <form className={classes.form} noValidate>
+              <TextField name="username" onChange={onChange} />
+              <TextField name="password" type="password" onChange={onChange} />
+              <TextField name="email" onChange={onChange} />
+              <Button onClick={signUp}>Sign Up</Button>
+              <Button onClick={showSignIn}>
+                Already have an account? Sign In
+              </Button>
+            </form>
+          ),
+          confirmSignUp: (
+            <form className={classes.form} noValidate>
+              <TextField name="username" onChange={onChange} />
+              <TextField name="verificationCode" onChange={onChange} />
+              <Button onClick={confirmSignUp}>Confirm Sign Up</Button>
+            </form>
+          ),
+          signIn: (
+            <form className={classes.form} noValidate>
+              <TextField
+                variant="outlined"
+                margin="normal"
+                required
+                fullWidth
+                id="username"
+                label="Username"
+                name="username"
+                autoComplete="username"
+                autoFocus
+                onChange={onChange}
+              />
+              <TextField
+                variant="outlined"
+                margin="normal"
+                required
+                fullWidth
+                name="password"
+                label="Password"
+                type="password"
+                id="password"
+                autoComplete="current-password"
+                onChange={onChange}
+              />
+              <Button
+                type="submit"
+                fullWidth
+                variant="contained"
+                color="primary"
+                className={classes.submit}
+                onClick={signIn}
+              >
+                Sign In
+              </Button>
+              <Grid container>
+                <Grid item xs>
+                  <Button>Forgot password?</Button>
+                </Grid>
+                <Grid item>
+                  <Button onClick={showSignUp}>
+                    Don't have an account? Sign Up
+                  </Button>
+                </Grid>
               </Grid>
-              <Grid item>
-                <Link href="#" variant="body2">
-                  {"Don't have an account? Sign Up"}
-                </Link>
-              </Grid>
-            </Grid>
-          </form>
-        </div>
-      </Container>
-    );
-  }
-
-  /* If the form state is "signedIn", show the app */
-  if (formState === "signedIn") {
-    return (
-      <div>
-        <h1>Welcome to my app!</h1>
-      </div>
-    );
-  }
+            </form>
+          ),
+          signedIn: (
+            <form className={classes.form} noValidate>
+              <h1>Welcome to my app!</h1>
+            </form>
+          ),
+        }[formState]
+      }
+    </div>
+  );
 };
 
 export default SignIn;

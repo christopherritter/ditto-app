@@ -69,10 +69,6 @@ function App() {
     });
   }
 
-  const signIn = async () => {
-    setLoggedIn(true);
-  };
-
   const signOut = async () => {
     try {
       await Auth.signOut();
@@ -97,7 +93,7 @@ function App() {
             <WriteEmail createEmail={(formData) => createEmail(formData)} />
           </Route>
           <Route path="/signin">
-            <SignIn onSignIn={signIn} />
+            <SignIn />
           </Route>
         </Switch>
         <Footer />
