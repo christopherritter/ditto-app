@@ -79,6 +79,10 @@ function App() {
     }
   };
 
+  function signedIn() {
+    setLoggedIn(true);
+  }
+
   return (
     <Router>
       <div className="App">
@@ -93,7 +97,7 @@ function App() {
             <WriteEmail createEmail={(formData) => createEmail(formData)} />
           </Route>
           <Route path="/signin">
-            <SignIn />
+            <SignIn signedIn={signedIn} />
           </Route>
         </Switch>
         <Footer />

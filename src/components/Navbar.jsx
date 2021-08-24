@@ -37,7 +37,7 @@ const Navbar = (props) => {
           ) : (
             <Link to="/signin">
               <Button color="primary">
-                Sign In
+                Sign Up / Sign In
               </Button>
             </Link>
           )}

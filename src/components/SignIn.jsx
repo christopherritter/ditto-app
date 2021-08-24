@@ -1,13 +1,7 @@
 import React, { useState } from "react";
 import { Auth } from "aws-amplify";
 import { useHistory } from "react-router-dom";
-import {
-  Avatar,
-  Button,
-  TextField,
-  Grid,
-  Typography,
-} from "@material-ui/core";
+import { Avatar, Button, TextField, Grid, Typography } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
 import LockOutlinedIcon from "@material-ui/icons/LockOutlined";
 
@@ -31,7 +25,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const SignIn = () => {
+const SignIn = ({ signedIn }) => {
   const classes = useStyles();
   const history = useHistory();
 
@@ -95,6 +89,7 @@ const SignIn = () => {
       await Auth.signIn(formInputState.username, formInputState.password);
       /* Once the user successfully signs in, update the form state to show the signed in state */
       setFormState("signedIn");
+      signedIn();
       history.push("/");
     } catch (err) {
       console.log({ err });
@@ -109,7 +104,6 @@ const SignIn = () => {
       <Typography component="h1" variant="h5">
         Sign in
       </Typography>
-
       {
         {
           signUp: (
