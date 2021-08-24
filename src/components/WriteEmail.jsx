@@ -83,7 +83,7 @@ const WriteEmail = (props) => {
   async function sendEmail() {
     console.log("send email", formData);
 
-    window.location.href = `mailto:${formData.name}&subject=Big%20News&body=${formData.description}`;
+    window.location.href = `mailto:${formData.name}?subject=Big%20News&body=${formData.description}`;
 
     // var sendPromise = new AWS.SES({ apiVersion: "2010-12-01" })
     //   .sendEmail(params)
