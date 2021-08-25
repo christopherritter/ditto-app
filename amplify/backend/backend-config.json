@@ -33,7 +33,7 @@
             "authenticationType": "API_KEY",
             "apiKeyConfig": {
               "apiKeyExpirationDays": 7,
-              "description": "GraphQL API key for Ditto"
+              "description": "Ditto DB"
             }
           },
           "additionalAuthenticationProviders": []

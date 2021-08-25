@@ -1,5 +1,11 @@
-type Email @model {
+type Template @model {
+  id: ID!
+  subject: String!
+  body: String!
+}
+
+type Recipient @model {
   id: ID!
   name: String!
-  description: String
+  emailAddress: String!
 }

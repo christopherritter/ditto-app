@@ -1,43 +1,85 @@
 /* eslint-disable */
 // this is an auto generated file. This will be overwritten
 
-export const createEmail = /* GraphQL */ `
-  mutation CreateEmail(
-    $input: CreateEmailInput!
-    $condition: ModelEmailConditionInput
+export const createTemplate = /* GraphQL */ `
+  mutation CreateTemplate(
+    $input: CreateTemplateInput!
+    $condition: ModelTemplateConditionInput
   ) {
-    createEmail(input: $input, condition: $condition) {
+    createTemplate(input: $input, condition: $condition) {
       id
-      name
-      description
+      subject
+      body
       createdAt
       updatedAt
     }
   }
 `;
-export const updateEmail = /* GraphQL */ `
-  mutation UpdateEmail(
-    $input: UpdateEmailInput!
-    $condition: ModelEmailConditionInput
+export const updateTemplate = /* GraphQL */ `
+  mutation UpdateTemplate(
+    $input: UpdateTemplateInput!
+    $condition: ModelTemplateConditionInput
   ) {
-    updateEmail(input: $input, condition: $condition) {
+    updateTemplate(input: $input, condition: $condition) {
       id
-      name
-      description
+      subject
+      body
       createdAt
       updatedAt
     }
   }
 `;
-export const deleteEmail = /* GraphQL */ `
-  mutation DeleteEmail(
-    $input: DeleteEmailInput!
-    $condition: ModelEmailConditionInput
+export const deleteTemplate = /* GraphQL */ `
+  mutation DeleteTemplate(
+    $input: DeleteTemplateInput!
+    $condition: ModelTemplateConditionInput
   ) {
-    deleteEmail(input: $input, condition: $condition) {
+    deleteTemplate(input: $input, condition: $condition) {
+      id
+      subject
+      body
+      createdAt
+      updatedAt
+    }
+  }
+`;
+export const createRecipient = /* GraphQL */ `
+  mutation CreateRecipient(
+    $input: CreateRecipientInput!
+    $condition: ModelRecipientConditionInput
+  ) {
+    createRecipient(input: $input, condition: $condition) {
       id
       name
-      description
+      emailAddress
+      createdAt
+      updatedAt
+    }
+  }
+`;
+export const updateRecipient = /* GraphQL */ `
+  mutation UpdateRecipient(
+    $input: UpdateRecipientInput!
+    $condition: ModelRecipientConditionInput
+  ) {
+    updateRecipient(input: $input, condition: $condition) {
+      id
+      name
+      emailAddress
+      createdAt
+      updatedAt
+    }
+  }
+`;
+export const deleteRecipient = /* GraphQL */ `
+  mutation DeleteRecipient(
+    $input: DeleteRecipientInput!
+    $condition: ModelRecipientConditionInput
+  ) {
+    deleteRecipient(input: $input, condition: $condition) {
+      id
+      name
+      emailAddress
       createdAt
       updatedAt
     }

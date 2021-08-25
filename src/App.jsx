@@ -2,10 +2,10 @@ import React, { useState, useEffect } from "react";
 import "./App.css";
 import { Auth, API } from "aws-amplify";
 import { Switch, Route, BrowserRouter as Router } from "react-router-dom";
-import { listEmails } from "./graphql/queries";
+import { listTemplates } from "./graphql/queries";
 import {
-  createEmail as createEmailMutation,
-  deleteEmail as deleteEmailMutation,
+  createTemplate as createTemplateMutation,
+  deleteTemplate as deleteTemplateMutation,
 } from "./graphql/mutations";
 
 import Navbar from "./components/Navbar.jsx";
@@ -34,33 +34,34 @@ function App() {
     AssessLoggedInState();
   }, []);
 
-  const [emails, setEmails] = useState([]);
+  const [templates, setTemplates] = useState([]);
 
   useEffect(() => {
-    fetchEmails();
+    fetchTemplates();
   }, []);
 
-  async function fetchEmails() {
+  async function fetchTemplates() {
     const apiData = await API.graphql({
-      query: listEmails,
+      query: listTemplates,
     });
-    setEmails(apiData.data.listEmails.items);
+    setTemplates(apiData.data.listTemplates.items);
   }
 
-  async function createEmail(formData) {
-    if (!formData.name || !formData.description) return;
+  async function createTemplate(formData) {
+    console.log("createTemplate", formData);
+    if (!formData.subject || !formData.body) return;
     await API.graphql({
-      query: createEmailMutation,
+      query: createTemplateMutation,
       variables: { input: formData },
     });
-    setEmails([...emails, formData]);
+    setTemplates([...templates, formData]);
   }
 
-  async function deleteEmail({ id }) {
-    const newEmailsArray = emails.filter((email) => email.id !== id);
-    setEmails(newEmailsArray);
+  async function deleteTemplate({ id }) {
+    const newTemplatesArray = templates.filter((template) => template.id !== id);
+    setTemplates(newTemplatesArray);
     await API.graphql({
-      query: deleteEmailMutation,
+      query: deleteTemplateMutation,
       variables: {
         input: {
           id,
@@ -91,10 +92,10 @@ function App() {
           <Route exact path="/">
             <Jumbotron />
             <SelectTemplate
-              emails={emails}
-              deleteEmail={(email) => deleteEmail(email)}
+              templates={templates}
+              deleteTemplate={(template) => deleteTemplate(template)}
             />
-            <WriteEmail createEmail={(formData) => createEmail(formData)} />
+            <WriteEmail createTemplate={(formData) => createTemplate(formData)} />
           </Route>
           <Route path="/signin">
             <SignIn signedIn={signedIn} />

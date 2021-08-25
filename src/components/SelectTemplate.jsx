@@ -30,13 +30,13 @@ const SelectTemplate = (props) => {
         </Grid>
         <Grid item xs={12}>
           <Grid container>
-            {props.emails.map((email) => (
-              <Grid item xs={4} key={email.id || email.name}>
+            {props.templates.map((template, index) => (
+              <Grid item xs={4} key={index}>
                 <Paper className={classes.letter} elevation={2} square>
-                  <Typography variant="body1">{email.name}</Typography>
-                  <Typography variant="body2">{email.description}</Typography>
-                  <Button onClick={() => props.deleteEmail(email)}>
-                    Delete email
+                  <Typography variant="body1">{template.subject}</Typography>
+                  <Typography variant="body2">{template.body}</Typography>
+                  <Button onClick={() => props.deleteTemplate(template)}>
+                    Delete template
                   </Button>
                 </Paper>
               </Grid>
