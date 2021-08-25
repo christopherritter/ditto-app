@@ -7,6 +7,7 @@ export const onCreateTemplate = /* GraphQL */ `
       id
       subject
       body
+      authorID
       createdAt
       updatedAt
     }
@@ -18,6 +19,7 @@ export const onUpdateTemplate = /* GraphQL */ `
       id
       subject
       body
+      authorID
       createdAt
       updatedAt
     }
@@ -29,6 +31,7 @@ export const onDeleteTemplate = /* GraphQL */ `
       id
       subject
       body
+      authorID
       createdAt
       updatedAt
     }
@@ -39,7 +42,7 @@ export const onCreateRecipient = /* GraphQL */ `
     onCreateRecipient {
       id
       name
-      emailAddress
+      email
       createdAt
       updatedAt
     }
@@ -50,7 +53,7 @@ export const onUpdateRecipient = /* GraphQL */ `
     onUpdateRecipient {
       id
       name
-      emailAddress
+      email
       createdAt
       updatedAt
     }
@@ -61,7 +64,7 @@ export const onDeleteRecipient = /* GraphQL */ `
     onDeleteRecipient {
       id
       name
-      emailAddress
+      email
       createdAt
       updatedAt
     }

@@ -18,6 +18,7 @@ import SignIn from "./components/SignIn.jsx";
 // Making a simple change to the App component
 
 function App() {
+  const [user, setUser] = useState(null);
   const [loggedIn, setLoggedIn] = useState(false);
 
   const AssessLoggedInState = () => {
@@ -30,9 +31,21 @@ function App() {
       });
   };
 
+  const setCurrentUser = async () => {
+    const user = await Auth.currentAuthenticatedUser();
+    setUser({
+      username: user.username,
+      email: user.attributes.email,
+      authorID: user.attributes.sub,
+    });
+  }
+
   useEffect(() => {
     AssessLoggedInState();
-  }, []);
+    if (loggedIn) {
+      setCurrentUser();
+    }
+  }, [loggedIn]);
 
   const [templates, setTemplates] = useState([]);
 
@@ -50,6 +63,7 @@ function App() {
   async function createTemplate(formData) {
     console.log("createTemplate", formData);
     if (!formData.subject || !formData.body) return;
+    formData = {...formData, authorID: user.authorID};
     await API.graphql({
       query: createTemplateMutation,
       variables: { input: formData },
@@ -92,6 +106,7 @@ function App() {
           <Route exact path="/">
             <Jumbotron />
             <SelectTemplate
+              user={user}
               templates={templates}
               deleteTemplate={(template) => deleteTemplate(template)}
             />

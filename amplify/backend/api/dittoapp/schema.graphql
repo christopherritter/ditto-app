@@ -2,10 +2,11 @@ type Template @model {
   id: ID!
   subject: String!
   body: String!
+  authorID: String!
 }
 
 type Recipient @model {
   id: ID!
   name: String!
-  emailAddress: String!
+  email: String!
 }

@@ -7,6 +7,7 @@ export const getTemplate = /* GraphQL */ `
       id
       subject
       body
+      authorID
       createdAt
       updatedAt
     }
@@ -23,6 +24,7 @@ export const listTemplates = /* GraphQL */ `
         id
         subject
         body
+        authorID
         createdAt
         updatedAt
       }
@@ -35,7 +37,7 @@ export const getRecipient = /* GraphQL */ `
     getRecipient(id: $id) {
       id
       name
-      emailAddress
+      email
       createdAt
       updatedAt
     }
@@ -51,7 +53,7 @@ export const listRecipients = /* GraphQL */ `
       items {
         id
         name
-        emailAddress
+        email
         createdAt
         updatedAt
       }
