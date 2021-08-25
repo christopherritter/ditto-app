@@ -38,7 +38,7 @@ function App() {
       email: user.attributes.email,
       authorID: user.attributes.sub,
     });
-  }
+  };
 
   useEffect(() => {
     AssessLoggedInState();
@@ -63,7 +63,7 @@ function App() {
   async function createTemplate(formData) {
     console.log("createTemplate", formData);
     if (!formData.subject || !formData.body) return;
-    formData = {...formData, authorID: user.authorID};
+    formData = { ...formData, authorID: user.authorID };
     await API.graphql({
       query: createTemplateMutation,
       variables: { input: formData },
@@ -72,7 +72,9 @@ function App() {
   }
 
   async function deleteTemplate({ id }) {
-    const newTemplatesArray = templates.filter((template) => template.id !== id);
+    const newTemplatesArray = templates.filter(
+      (template) => template.id !== id
+    );
     setTemplates(newTemplatesArray);
     await API.graphql({
       query: deleteTemplateMutation,
@@ -110,7 +112,10 @@ function App() {
               templates={templates}
               deleteTemplate={(template) => deleteTemplate(template)}
             />
-            <WriteEmail createTemplate={(formData) => createTemplate(formData)} />
+            <WriteEmail
+              user={user}
+              createTemplate={(formData) => createTemplate(formData)}
+            />
           </Route>
           <Route path="/signin">
             <SignIn signedIn={signedIn} />

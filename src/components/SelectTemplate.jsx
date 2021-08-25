@@ -35,7 +35,6 @@ const SelectTemplate = (props) => {
                 <Paper className={classes.letter} elevation={2} square>
                   <Typography variant="body1">{template.subject}</Typography>
                   <Typography variant="body2">{template.body}</Typography>
-                  <Typography variant="body2">{template.authorID}</Typography>
                   {props.user && props.user.authorID === template.authorID ? (
                     <Button onClick={() => props.deleteTemplate(template)}>
                       Delete template

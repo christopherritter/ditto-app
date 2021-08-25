@@ -70,15 +70,18 @@ const WriteEmail = (props) => {
                   value={formData.body}
                 />
               </Grid>
-              <Grid item sm={6} xs={12}>
-                <Button
-                  variant="contained"
-                  color="primary"
-                  onClick={createTemplate}
-                >
-                  Save Template
-                </Button>
-              </Grid>
+              {
+                props.user ? (
+                  <Grid item sm={6} xs={12}>
+                  <Button
+                    variant="contained"
+                    color="primary"
+                    onClick={createTemplate}
+                  >
+                    Save Template
+                  </Button>
+                </Grid> ) : null
+              }
               <Grid item sm={6} xs={12}>
                 <Button
                   variant="contained"
