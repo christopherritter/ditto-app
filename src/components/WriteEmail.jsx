@@ -1,7 +1,13 @@
 import React, { useState, useEffect } from "react";
 
 import { makeStyles } from "@material-ui/core/styles";
-import { Container, Grid, Typography, TextField, Button } from "@material-ui/core";
+import {
+  Container,
+  Grid,
+  Typography,
+  TextField,
+  Button,
+} from "@material-ui/core";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -18,7 +24,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const initialFormState = { subject: "", body: "" };
+const initialFormState = { recipient: "", subject: "", body: "" };
 
 const WriteEmail = (props) => {
   const classes = useStyles();
@@ -31,7 +37,14 @@ const WriteEmail = (props) => {
   }
 
   async function sendEmail() {
-    window.location.href = `mailto:email@address.com?subject=${formData.subject}&body=${formData.body}`;
+    window.location.href = `mailto:${formData.recipient}?subject=${formData.subject}&body=${formData.body}`;
+  }
+
+  function handleChangeInput (e) {
+    const { value } = e.target;
+    const body =  value.slice(0, 1200);
+
+    setFormData({ ...formData, body })
   }
 
   useEffect(() => {
@@ -55,9 +68,22 @@ const WriteEmail = (props) => {
                 <Grid item xs={12}>
                   <TextField
                     className={classes.textfield}
+                    label="Recipient"
+                    variant="outlined"
+                    fullWidth
+                    onChange={(e) =>
+                      setFormData({ ...formData, recipient: e.target.value })
+                    }
+                    placeholder="Recipient"
+                    value={formData.recipient}
+                  />
+                </Grid>
+                <Grid item xs={12}>
+                  <TextField
+                    className={classes.textfield}
                     label="Subject"
                     variant="outlined"
-                    fullWidth 
+                    fullWidth
                     onChange={(e) =>
                       setFormData({ ...formData, subject: e.target.value })
                     }
@@ -70,18 +96,15 @@ const WriteEmail = (props) => {
                     className={classes.textfield}
                     label="Body"
                     variant="outlined"
-                    fullWidth 
+                    fullWidth
                     multiline
-                    onChange={(e) =>
-                      setFormData({ ...formData, body: e.target.value })
-                    }
+                    onChange={handleChangeInput}
                     placeholder="Body of the email."
                     value={formData.body}
                   />
                 </Grid>
-                {
-                  props.user ? (
-                    <Grid item sm={6} xs={12}>
+                {props.user ? (
+                  <Grid item sm={6} xs={12}>
                     <Button
                       variant="contained"
                       color="primary"
@@ -89,8 +112,8 @@ const WriteEmail = (props) => {
                     >
                       Save Template
                     </Button>
-                  </Grid> ) : null
-                }
+                  </Grid>
+                ) : null}
                 <Grid item sm={6} xs={12}>
                   <Button
                     variant="contained"

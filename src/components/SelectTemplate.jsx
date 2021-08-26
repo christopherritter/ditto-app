@@ -46,6 +46,9 @@ const SelectTemplate = (props) => {
                       <Typography gutterBottom variant="h5" component="h2">
                         {template.subject}
                       </Typography>
+                      <Typography gutterBottom variant="body2" component="p">
+                        {template.recipient}
+                      </Typography>
                       <Typography
                         variant="body2"
                         color="textSecondary"
@@ -55,7 +58,12 @@ const SelectTemplate = (props) => {
                       </Typography>
                     </CardContent>
                     <CardActions>
-                      <Button color="primary" onClick={() => props.selectTemplate(template)}>Select template</Button>
+                      <Button
+                        color="primary"
+                        onClick={() => props.selectTemplate(template)}
+                      >
+                        Select template
+                      </Button>
                       {props.user &&
                       props.user.authorID === template.authorID ? (
                         <Button onClick={() => props.deleteTemplate(template)}>
