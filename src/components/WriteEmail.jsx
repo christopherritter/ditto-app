@@ -1,7 +1,7 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 
 import { makeStyles } from "@material-ui/core/styles";
-import { Grid, Typography, TextField, Button } from "@material-ui/core";
+import { Container, Grid, Typography, TextField, Button } from "@material-ui/core";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -34,67 +34,77 @@ const WriteEmail = (props) => {
     window.location.href = `mailto:email@address.com?subject=${formData.subject}&body=${formData.body}`;
   }
 
+  useEffect(() => {
+    if (props.selectedTemplate) {
+      setFormData(props.selectedTemplate);
+    }
+  }, [props.selectedTemplate]);
+
   return (
     <div className={classes.root}>
-      <Grid container>
-        <Grid item xs={12}>
-          <Typography variant="h3" className={classes.header}>
-            Create a Template
-          </Typography>
-        </Grid>
-        <Grid item xs={12}>
-          <form noValidate autoComplete="off">
-            <Grid container>
-              <Grid item xs={12}>
-                <TextField
-                  className={classes.textfield}
-                  label="Subject"
-                  variant="outlined"
-                  onChange={(e) =>
-                    setFormData({ ...formData, subject: e.target.value })
-                  }
-                  placeholder="Subject"
-                  value={formData.subject}
-                />
-              </Grid>
-              <Grid item xs={12}>
-                <TextField
-                  className={classes.textfield}
-                  label="Body"
-                  variant="outlined"
-                  multiline
-                  onChange={(e) =>
-                    setFormData({ ...formData, body: e.target.value })
-                  }
-                  placeholder="Body of the email."
-                  value={formData.body}
-                />
-              </Grid>
-              {
-                props.user ? (
-                  <Grid item sm={6} xs={12}>
+      <Container>
+        <Grid container>
+          <Grid item xs={12}>
+            <Typography variant="h3" className={classes.header}>
+              Write an Email
+            </Typography>
+          </Grid>
+          <Grid item xs={12}>
+            <form noValidate autoComplete="off">
+              <Grid container>
+                <Grid item xs={12}>
+                  <TextField
+                    className={classes.textfield}
+                    label="Subject"
+                    variant="outlined"
+                    fullWidth 
+                    onChange={(e) =>
+                      setFormData({ ...formData, subject: e.target.value })
+                    }
+                    placeholder="Subject"
+                    value={formData.subject}
+                  />
+                </Grid>
+                <Grid item xs={12}>
+                  <TextField
+                    className={classes.textfield}
+                    label="Body"
+                    variant="outlined"
+                    fullWidth 
+                    multiline
+                    onChange={(e) =>
+                      setFormData({ ...formData, body: e.target.value })
+                    }
+                    placeholder="Body of the email."
+                    value={formData.body}
+                  />
+                </Grid>
+                {
+                  props.user ? (
+                    <Grid item sm={6} xs={12}>
+                    <Button
+                      variant="contained"
+                      color="primary"
+                      onClick={createTemplate}
+                    >
+                      Save Template
+                    </Button>
+                  </Grid> ) : null
+                }
+                <Grid item sm={6} xs={12}>
                   <Button
                     variant="contained"
-                    color="primary"
-                    onClick={createTemplate}
+                    color="secondary"
+                    onClick={sendEmail}
                   >
-                    Save Template
+                    Send Email
                   </Button>
-                </Grid> ) : null
-              }
-              <Grid item sm={6} xs={12}>
-                <Button
-                  variant="contained"
-                  color="secondary"
-                  onClick={sendEmail}
-                >
-                  Send Email
-                </Button>
+                </Grid>
               </Grid>
-            </Grid>
-          </form>
+            </form>
+          </Grid>
         </Grid>
-      </Grid>
+      </Container>
     </div>
   );
 };

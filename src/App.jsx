@@ -60,6 +60,8 @@ function App() {
     setTemplates(apiData.data.listTemplates.items);
   }
 
+  const [selectedTemplate, setSelectedTemplate] = useState(null);
+
   async function createTemplate(formData) {
     console.log("createTemplate", formData);
     if (!formData.subject || !formData.body) return;
@@ -110,10 +112,12 @@ function App() {
             <SelectTemplate
               user={user}
               templates={templates}
+              selectTemplate={(template) => setSelectedTemplate(template)}
               deleteTemplate={(template) => deleteTemplate(template)}
             />
             <WriteEmail
               user={user}
+              selectedTemplate={selectedTemplate}
               createTemplate={(formData) => createTemplate(formData)}
             />
           </Route>

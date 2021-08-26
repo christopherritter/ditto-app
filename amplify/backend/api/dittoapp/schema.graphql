@@ -3,9 +3,10 @@ type Template @model {
   subject: String!
   body: String!
   authorID: String!
+  recipient: String!
 }
 
-type Recipient @model {
+type Recipients @model {
   id: ID!
   name: String!
   email: String!

@@ -1,6 +1,6 @@
 import React from "react";
 import { makeStyles } from "@material-ui/core/styles";
-import { Grid, Typography, Button } from "@material-ui/core";
+import { Container, Grid, Typography, Button } from "@material-ui/core";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -14,6 +14,7 @@ const useStyles = makeStyles((theme) => ({
   button: {
     backgroundColor: "#fff",
     color: "#15151d",
+    marginTop: "1em"
   }
 }));
 
@@ -22,23 +23,26 @@ const JumbotronComponent = () => {
 
   return (
     <div className={classes.root}>
-      <Grid container alignItems="center">
-        <Grid item sm={5}>
-          <Typography variant="h2" className={classes.header}>
-            Repeat after me
-          </Typography>
-          <Typography variant="body1">
-          Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris vel feugiat massa, in bibendum purus. Vivamus nec metus enim. Nulla a magna nibh.
-          </Typography>
-          <Button className={classes.button}>Click me</Button>
+      <Container>
+        <Grid container alignItems="center">
+          <Grid item sm={5}>
+            <Typography variant="h2" className={classes.header}>
+              Amplify your voice
+            </Typography>
+            <Typography variant="body1">
+              Share your emails to elected officials so that others can use them as a template to write and send their own email messages.
+            </Typography>
+            <Button className={classes.button}>Write an Email</Button>
+            <Button className={classes.button}>Select a Template</Button>
+          </Grid>
+          <Grid item sm={7}>
+            <img
+              src={process.env.PUBLIC_URL + "/img/megaphone.svg"}
+              alt="Megaphone"
+            />
+          </Grid>
         </Grid>
-        <Grid item sm={7}>
-          <img
-            src={process.env.PUBLIC_URL + "/img/megaphone.svg"}
-            alt="Megaphone"
-          />
-        </Grid>
-      </Grid>
+      </Container>
     </div>
   );
 };
