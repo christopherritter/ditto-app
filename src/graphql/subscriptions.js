@@ -8,6 +8,7 @@ export const onCreateTemplate = /* GraphQL */ `
       subject
       body
       authorID
+      recipient
       createdAt
       updatedAt
     }
@@ -20,6 +21,7 @@ export const onUpdateTemplate = /* GraphQL */ `
       subject
       body
       authorID
+      recipient
       createdAt
       updatedAt
     }
@@ -32,6 +34,7 @@ export const onDeleteTemplate = /* GraphQL */ `
       subject
       body
       authorID
+      recipient
       createdAt
       updatedAt
     }

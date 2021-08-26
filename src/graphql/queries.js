@@ -8,6 +8,7 @@ export const getTemplate = /* GraphQL */ `
       subject
       body
       authorID
+      recipient
       createdAt
       updatedAt
     }
@@ -25,6 +26,7 @@ export const listTemplates = /* GraphQL */ `
         subject
         body
         authorID
+        recipient
         createdAt
         updatedAt
       }
