@@ -17,11 +17,17 @@ const useStyles = makeStyles((theme) => ({
   },
   header: {
     color: "#fff",
+    marginTop: "0.5em",
+    marginBottom: "0.25em",
   },
   textfield: {
     borderRadius: 4,
     backgroundColor: "#fff",
+    marginBottom: "0.5em",
   },
+  button: {
+    marginBottom: "1.5em",
+  }
 }));
 
 const initialFormState = { recipient: "", subject: "", body: "" };
@@ -116,21 +122,23 @@ const WriteEmail = forwardRef(({ user, createTemplate, selectedTemplate }, ref) 
                   />
                 </Grid>
                 {user ? (
-                  <Grid item sm={6} xs={12}>
+                  <Grid item xs={6}>
                     <Button
                       variant="contained"
                       color="primary"
                       onClick={onCreateTemplate}
+                      className={classes.button}
                     >
                       Save Template
                     </Button>
                   </Grid>
                 ) : null}
-                <Grid item sm={6} xs={12}>
+                <Grid item xs={6}>
                   <Button
                     variant="contained"
                     color="secondary"
                     onClick={sendEmail}
+                    className={classes.button}
                   >
                     Send Email
                   </Button>

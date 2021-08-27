@@ -19,6 +19,8 @@ const useStyles = makeStyles((theme) => ({
   },
   header: {
     color: "#15151d",
+    marginTop: "0.5em",
+    marginBottom: "0.25em",
   },
   letter: {
     margin: "1em",
@@ -41,7 +43,7 @@ const SelectTemplate = forwardRef(({ templates, selectTemplate, user, deleteTemp
             <Grid container>
               {templates.map((template, index) => (
                 <Grid item xs={12} md={6} lg={4} key={index}>
-                  <Card className={classes.root}>
+                  <Card className={classes.letter}>
                     <CardContent>
                       <Typography gutterBottom variant="h5" component="h2">
                         {template.subject}
