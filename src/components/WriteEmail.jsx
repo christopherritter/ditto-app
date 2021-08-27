@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, forwardRef } from "react";
 
 import { makeStyles } from "@material-ui/core/styles";
 import {
@@ -26,13 +26,13 @@ const useStyles = makeStyles((theme) => ({
 
 const initialFormState = { recipient: "", subject: "", body: "" };
 
-const WriteEmail = (props) => {
+const WriteEmail = forwardRef(({ user, createTemplate, selectedTemplate }, ref) => {
   const classes = useStyles();
 
   const [formData, setFormData] = useState(initialFormState);
 
-  function createTemplate() {
-    props.createTemplate(formData);
+  function onCreateTemplate() {
+    createTemplate(formData);
     setFormData(initialFormState);
   }
 
@@ -62,13 +62,13 @@ const WriteEmail = (props) => {
   }
 
   useEffect(() => {
-    if (props.selectedTemplate) {
-      setFormData(props.selectedTemplate);
+    if (selectedTemplate) {
+      setFormData(selectedTemplate);
     }
-  }, [props.selectedTemplate]);
+  }, [selectedTemplate]);
 
   return (
-    <div className={classes.root}>
+    <div ref={ref} className={classes.root}>
       <Container>
         <Grid container>
           <Grid item xs={12}>
@@ -115,12 +115,12 @@ const WriteEmail = (props) => {
                     rows={12}
                   />
                 </Grid>
-                {props.user ? (
+                {user ? (
                   <Grid item sm={6} xs={12}>
                     <Button
                       variant="contained"
                       color="primary"
-                      onClick={createTemplate}
+                      onClick={onCreateTemplate}
                     >
                       Save Template
                     </Button>
@@ -142,6 +142,6 @@ const WriteEmail = (props) => {
       </Container>
     </div>
   );
-};
+});
 
 export default WriteEmail;

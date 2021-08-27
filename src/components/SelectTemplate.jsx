@@ -1,4 +1,4 @@
-import React from "react";
+import React, { forwardRef } from "react";
 
 import { makeStyles } from "@material-ui/core/styles";
 import {
@@ -25,11 +25,11 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const SelectTemplate = (props) => {
+const SelectTemplate = forwardRef(({ templates, selectTemplate, user, deleteTemplate }, ref) => {
   const classes = useStyles();
 
   return (
-    <div className={classes.root}>
+    <div ref={ref} className={classes.root}>
       <Container>
         <Grid container>
           <Grid item xs={12}>
@@ -39,7 +39,7 @@ const SelectTemplate = (props) => {
           </Grid>
           <Grid item xs={12}>
             <Grid container>
-              {props.templates.map((template, index) => (
+              {templates.map((template, index) => (
                 <Grid item xs={12} md={6} lg={4} key={index}>
                   <Card className={classes.root}>
                     <CardContent>
@@ -62,13 +62,13 @@ const SelectTemplate = (props) => {
                     <CardActions>
                       <Button
                         color="primary"
-                        onClick={() => props.selectTemplate(template)}
+                        onClick={() => selectTemplate(template)}
                       >
                         Select template
                       </Button>
-                      {props.user &&
-                      props.user.authorID === template.authorID ? (
-                        <Button onClick={() => props.deleteTemplate(template)}>
+                      {user &&
+                      user.authorID === template.authorID ? (
+                        <Button onClick={() => deleteTemplate(template)}>
                           Delete template
                         </Button>
                       ) : null}
@@ -85,6 +85,6 @@ const SelectTemplate = (props) => {
       </Container>
     </div>
   );
-};
+});
 
 export default SelectTemplate;

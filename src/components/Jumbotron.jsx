@@ -18,8 +18,9 @@ const useStyles = makeStyles((theme) => ({
   }
 }));
 
-const JumbotronComponent = () => {
+const JumbotronComponent = (props) => {
   const classes = useStyles();
+  const { selectTemplate, writeEmail } = props;
 
   return (
     <div className={classes.root}>
@@ -32,8 +33,8 @@ const JumbotronComponent = () => {
             <Typography variant="body1">
               Share your emails to elected officials so that others can use them as a template to write and send their own email messages.
             </Typography>
-            <Button className={classes.button}>Write an Email</Button>
-            <Button className={classes.button}>Select a Template</Button>
+            <Button className={classes.button} onClick={writeEmail}>Write an Email</Button>
+            <Button className={classes.button} onClick={selectTemplate}>Select a Template</Button>
           </Grid>
           <Grid item sm={7}>
             <img

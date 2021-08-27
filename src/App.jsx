@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { Auth, API } from "aws-amplify";
 import { Switch, Route, BrowserRouter as Router } from "react-router-dom";
 import { listTemplates } from "./graphql/queries";
@@ -59,6 +59,12 @@ function App() {
     setTemplates(apiData.data.listTemplates.items);
   }
 
+  const selectTemplateRef = useRef(null);
+  const writeEmailRef = useRef(null);
+  
+  const scrollToSelectTemplate = () => selectTemplateRef.current.scrollIntoView({ behavior: 'smooth' });
+  const scrollToWriteEmail = () => writeEmailRef.current.scrollIntoView({ behavior: 'smooth' });
+
   const [selectedTemplate, setSelectedTemplate] = useState(null);
 
   async function createTemplate(formData) {
@@ -107,14 +113,19 @@ function App() {
         <Navbar loggedIn={loggedIn} signOut={signOut} />
         <Switch>
           <Route exact path="/">
-            <Jumbotron />
+            <Jumbotron
+              selectTemplate={scrollToSelectTemplate}
+              writeEmail={scrollToWriteEmail}
+            />
             <SelectTemplate
+              ref={selectTemplateRef}
               user={user}
               templates={templates}
               selectTemplate={(template) => setSelectedTemplate(template)}
               deleteTemplate={(template) => deleteTemplate(template)}
             />
             <WriteEmail
+              ref={writeEmailRef}
               user={user}
               selectedTemplate={selectedTemplate}
               createTemplate={(formData) => createTemplate(formData)}
