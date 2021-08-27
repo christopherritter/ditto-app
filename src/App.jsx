@@ -61,7 +61,7 @@ function App() {
 
   const selectTemplateRef = useRef(null);
   const writeEmailRef = useRef(null);
-  
+
   const scrollToSelectTemplate = () => selectTemplateRef.current.scrollIntoView({ behavior: 'smooth' });
   const scrollToWriteEmail = () => writeEmailRef.current.scrollIntoView({ behavior: 'smooth' });
 
@@ -123,6 +123,7 @@ function App() {
               templates={templates}
               selectTemplate={(template) => setSelectedTemplate(template)}
               deleteTemplate={(template) => deleteTemplate(template)}
+              writeEmail={scrollToWriteEmail}
             />
             <WriteEmail
               ref={writeEmailRef}

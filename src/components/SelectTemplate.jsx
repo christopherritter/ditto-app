@@ -27,8 +27,13 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const SelectTemplate = forwardRef(({ templates, selectTemplate, user, deleteTemplate }, ref) => {
+const SelectTemplate = forwardRef(({ templates, selectTemplate, user, deleteTemplate, writeEmail }, ref) => {
   const classes = useStyles();
+
+  function onSelectTemplate(template) {
+    selectTemplate(template);
+    writeEmail();
+  }
 
   return (
     <div ref={ref} className={classes.root}>
@@ -64,7 +69,7 @@ const SelectTemplate = forwardRef(({ templates, selectTemplate, user, deleteTemp
                     <CardActions>
                       <Button
                         color="primary"
-                        onClick={() => selectTemplate(template)}
+                        onClick={() => onSelectTemplate(template)}
                       >
                         Select template
                       </Button>
