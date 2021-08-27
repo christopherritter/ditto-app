@@ -40,9 +40,23 @@ const WriteEmail = (props) => {
     window.location.href = `mailto:${formData.recipient}?subject=${formData.subject}&body=${formData.body}`;
   }
 
-  function handleChangeInput (e) {
+  function handleRecipientInput (e) {
     const { value } = e.target;
-    const body =  value.slice(0, 1200);
+    const recipient =  value.slice(0, 50);
+
+    setFormData({ ...formData, recipient })
+  }
+
+  function handleSubjectInput (e) {
+    const { value } = e.target;
+    const subject =  value.slice(0, 50);
+
+    setFormData({ ...formData, subject })
+  }
+
+  function handleBodyInput (e) {
+    const { value } = e.target;
+    const body =  value.slice(0, 1400);
 
     setFormData({ ...formData, body })
   }
@@ -71,9 +85,7 @@ const WriteEmail = (props) => {
                     label="Recipient"
                     variant="outlined"
                     fullWidth
-                    onChange={(e) =>
-                      setFormData({ ...formData, recipient: e.target.value })
-                    }
+                    onChange={handleRecipientInput}
                     placeholder="Recipient"
                     value={formData.recipient}
                   />
@@ -84,9 +96,7 @@ const WriteEmail = (props) => {
                     label="Subject"
                     variant="outlined"
                     fullWidth
-                    onChange={(e) =>
-                      setFormData({ ...formData, subject: e.target.value })
-                    }
+                    onChange={handleSubjectInput}
                     placeholder="Subject"
                     value={formData.subject}
                   />
@@ -98,9 +108,11 @@ const WriteEmail = (props) => {
                     variant="outlined"
                     fullWidth
                     multiline
-                    onChange={handleChangeInput}
+                    onChange={handleBodyInput}
                     placeholder="Body of the email."
                     value={formData.body}
+                    helperText="Maximum of 1400 characters allowed"
+                    rows={12}
                   />
                 </Grid>
                 {props.user ? (

@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from "react";
-import "./App.css";
 import { Auth, API } from "aws-amplify";
 import { Switch, Route, BrowserRouter as Router } from "react-router-dom";
 import { listTemplates } from "./graphql/queries";

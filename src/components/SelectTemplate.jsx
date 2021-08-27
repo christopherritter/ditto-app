@@ -40,7 +40,7 @@ const SelectTemplate = (props) => {
           <Grid item xs={12}>
             <Grid container>
               {props.templates.map((template, index) => (
-                <Grid item xs={4} key={index}>
+                <Grid item xs={12} md={6} lg={4} key={index}>
                   <Card className={classes.root}>
                     <CardContent>
                       <Typography gutterBottom variant="h5" component="h2">
@@ -50,9 +50,11 @@ const SelectTemplate = (props) => {
                         {template.recipient}
                       </Typography>
                       <Typography
-                        variant="body2"
+                        variant="body1"
                         color="textSecondary"
                         component="p"
+                        display="block"
+                        style={{ whiteSpace: "pre-line" }}
                       >
                         {template.body}
                       </Typography>
@@ -76,9 +78,9 @@ const SelectTemplate = (props) => {
               ))}
             </Grid>
           </Grid>
-          <Grid item xs={12}>
+          {/* <Grid item xs={12}>
             <Button>View More ▾</Button>
-          </Grid>
+          </Grid> */}
         </Grid>
       </Container>
     </div>
